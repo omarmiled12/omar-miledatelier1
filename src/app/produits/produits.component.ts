@@ -1,12 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProduitService } from '../services/produit.service';
+import { Produit } from '../model/produit.model';
 
 @Component({
   selector: 'app-produits',
-  standalone: true,
-  imports: [],
   templateUrl: './produits.component.html',
-  styleUrl: './produits.component.css'
+  
 })
-export class ProduitsComponent {
+export class ProduitsComponent implements OnInit {
+  produits : Produit[];
+  constructor(private produitService: ProduitService){
+    this.produits = produitService.listeProduits();
 
+    
+  }
+  ngOnInit(): void {
+    
+  }
+  supprimerProduit(p: Produit)
+  {
+  //console.log(p);
+ let conf = confirm("Etes-vous sûr ?");
+ if (conf)
+this.produitService.supprimerProduit(p);
+  }
+  
 }
